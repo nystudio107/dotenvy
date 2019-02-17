@@ -5,7 +5,7 @@ Output .env key/value variable pairs as Apache, Nginx, and shell equivalents
 
 ## Requirements
 
-PHP 7.0 or later.
+PHP 7.0 or later, and a project that uses [Composer](https://getcomposer.org/)
 
 ## Installation
 
@@ -59,8 +59,7 @@ Make sure you `.gitignore` all of the `.env*` files with a line like this in you
 ```
 .env*
 ```
-
-Note the trailing `*`
+...to ensure that none of your secrets in the generated `.env*` files are checked into git. Note the trailing `*`
 
 ### Example `.env` file
 
@@ -137,7 +136,7 @@ fastcgi_param    DB_PORT                 "3306";
 
 ```bash
 # CLI (bash) .env variables
-# Paste these inside to your .bashrc file in your $HOME directory:
+# Paste these inside your .bashrc file in your $HOME directory:
 export ENVIRONMENT="local"
 export SECURITY_KEY="jMgCxHuaM1g3qSzHiknTt5S8gDy5BNW7"
 export DB_DRIVER="mysql"
