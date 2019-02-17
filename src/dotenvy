@@ -1,0 +1,147 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Dotenvy
+ *
+ * Output .env key/value variable pairs as Apache, Nginx, and shell equivalents
+ *
+ * @author    nystudio107
+ * @copyright Copyright (c) 2019 nystudio107
+ * @link      https://nystudio107.com/
+ * @package   dotenvy
+ * @since     1.0.0
+ * @license   MIT
+ */
+// Set path constants
+define('DOTENVY_BASE_PATH', $argv[1] ?? getcwd());
+define('DOTENVY_VENDOR_PATH', DOTENVY_BASE_PATH.'/vendor');
+// Load Composer's autoloader
+require_once DOTENVY_VENDOR_PATH.'/autoload.php';
+// Load dotenv?
+if (file_exists(DOTENVY_BASE_PATH.'/.env')) {
+    // Load up the .env file variables
+    $env = new Dotenv\Dotenv(DOTENVY_BASE_PATH);
+    $env->load();
+    $vars = $env->getEnvironmentVariableNames();
+    if (!empty($vars)) {
+        $spaces = getMaxSpaces($vars);
+        createApacheEnvFile($vars, $spaces);
+        createNginxEnvFile($vars, $spaces);
+        createCliEnvFile($vars, $spaces);
+    } else {
+        echo PHP_EOL.'No variables found in the .env at '.DOTENVY_BASE_PATH.PHP_EOL;
+    }
+} else {
+    echo PHP_EOL.'No .env file found in '.DOTENVY_BASE_PATH.PHP_EOL;
+}
+
+/**
+ * @param array $vars
+ * @param int   $spaces
+ */
+function createApacheEnvFile(array $vars, int $spaces)
+{
+    echo 'Generating '.DOTENVY_BASE_PATH.'/env_apache.txt'.PHP_EOL;
+    // Open the file
+    $fp = fopen(DOTENVY_BASE_PATH . '/env_apache.txt', 'wb');
+    // Write out the comments
+    $comments = [
+        '# Apache .env variables',
+        '# Paste these inside the <VirtualHost> block:',
+    ];
+    foreach ($comments as $comment) {
+        fwrite($fp, $comment . PHP_EOL);
+    }
+    // Write out the .env variables
+    foreach ($vars as $var) {
+        fwrite($fp, 'SetEnv'.getSpaces('', 4).$var.getSpaces($var, $spaces).'"'. $_ENV[$var].'"'.PHP_EOL);
+    }
+    fclose($fp);
+}
+
+/**
+ * @param array $vars
+ * @param int   $spaces
+ */
+function createNginxEnvFile(array $vars, int $spaces)
+{
+    echo 'Generating '.DOTENVY_BASE_PATH.'/env_nginx.txt'.PHP_EOL;
+    // Open the file
+    $fp = fopen(DOTENVY_BASE_PATH . '/env_nginx.txt', 'wb');
+    // Write out the comments
+    $comments = [
+        '# Nginx .env variables',
+        '# Paste these inside the server {} or location ~ \.php {} block or in the fastcgi_params file:',
+    ];
+    foreach ($comments as $comment) {
+        fwrite($fp, $comment . PHP_EOL);
+    }
+    // Write out the .env variables
+    foreach ($vars as $var) {
+        fwrite($fp, 'fastcgi_param'.getSpaces('', 4).$var.getSpaces($var, $spaces).'"'. $_ENV[$var].'";'.PHP_EOL);
+    }
+    fclose($fp);
+}
+
+/**
+ * @param array $vars
+ * @param int   $spaces
+ */
+function createCliEnvFile(array $vars, int $spaces)
+{
+    echo 'Generating '.DOTENVY_BASE_PATH.'/env_cli.txt'.PHP_EOL;
+    // Open the file
+    $fp = fopen(DOTENVY_BASE_PATH . '/env_cli.txt', 'wb');
+    // Write out the comments
+    $comments = [
+        '# CLI (bash) .env variables',
+        '# Paste these inside to your .bashrc file in your $HOME directory:',
+    ];
+    foreach ($comments as $comment) {
+        fwrite($fp, $comment . PHP_EOL);
+    }
+    // Write out the .env variables
+    foreach ($vars as $var) {
+        fwrite($fp, 'export '.$var.'="'. $_ENV[$var].'"'.PHP_EOL);
+    }
+    fclose($fp);
+}
+/**
+ * @param array $vars
+ *
+ * @return int
+ */
+function getMaxSpaces(array $vars)
+{
+    $len = 0;
+    // Find the longest .env variable name
+    foreach ($vars as $var) {
+        if (strlen($var) > $len) {
+            $len = strlen($var);
+        }
+    }
+
+    return (int)(round(($len / 4) + .5) * 4);
+}
+
+/**
+ * @param string $str
+ * @param int    $number
+ *
+ * @return string
+ */
+function getSpaces(string $str, int $number): string
+{
+    $spaces = '';
+    $num = $number - strlen($str);
+    if ($num < 0) {
+        $num = 0;
+    }
+    while ($num--) {
+        $spaces .= ' ';
+    }
+
+    return $spaces;
+}
+
+exit(0);

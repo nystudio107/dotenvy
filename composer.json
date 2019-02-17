@@ -1,0 +1,26 @@
+{
+    "name": "nystudio107/dotenvy",
+    "description": "Output .env key/value variable pairs as Apache, Nginx, and shell equivalents.",
+    "version": "1.0.0",
+    "keywords": ["env", "dotenv", "environment", "apache", "nginx", "bash"],
+    "support": {
+        "docs": "https://github.com/nystudio107/dotenvy/blob/v1/README.md",
+        "issues": "https://github.com/nystudio107/dotenvy/issues"
+    },
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name": "nystudio107",
+            "homepage": "https://nystudio107.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "vlucas/phpdotenv": "^2.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "nystudio107\\dotenvy\\": "src/"
+        }
+    }
+}
