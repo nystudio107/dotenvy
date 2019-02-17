@@ -1,6 +1,6 @@
 {
     "name": "nystudio107/dotenvy",
-    "description": "Output .env key/value variable pairs as Apache, Nginx, and shell equivalents.",
+    "description": "Speed up your production sites by ditching .env for key/value variable pairs as Apache, Nginx, and shell equivalents.",
     "version": "1.0.0",
     "keywords": ["env", "dotenv", "environment", "apache", "nginx", "bash"],
     "support": {

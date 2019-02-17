@@ -1,7 +1,7 @@
 
 # Dotenvy
 
-Output .env key/value variable pairs as Apache, Nginx, and shell equivalents
+Speed up your production sites by ditching .env for key/value variable pairs as Apache, Nginx, and shell equivalents
 
 ## Requirements
 
