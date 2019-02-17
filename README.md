@@ -1,3 +1,4 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nystudio107/dotenvy/badges/quality-score.png?b=v1)](https://scrutinizer-ci.com/g/nystudio107/dotenvy/?branch=v1) [![Code Coverage](https://scrutinizer-ci.com/g/nystudio107/dotenvy/badges/coverage.png?b=v1)](https://scrutinizer-ci.com/g/nystudio107/dotenvy/?branch=v1) [![Build Status](https://scrutinizer-ci.com/g/nystudio107/dotenvy/badges/build.png?b=v1)](https://scrutinizer-ci.com/g/nystudio107/dotenvy/build-status/v1) [![Code Intelligence Status](https://scrutinizer-ci.com/g/nystudio107/dotenvy/badges/code-intelligence.svg?b=v1)](https://scrutinizer-ci.com/code-intelligence)
 
 # Dotenvy
 
