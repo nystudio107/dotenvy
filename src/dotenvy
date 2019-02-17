@@ -41,9 +41,9 @@ if (file_exists(DOTENVY_BASE_PATH.'/.env')) {
  */
 function createApacheEnvFile(array $vars, int $spaces)
 {
-    echo 'Generating '.DOTENVY_BASE_PATH.'/env_apache.txt'.PHP_EOL;
+    echo 'Generating '.DOTENVY_BASE_PATH.'/.env_apache.txt'.PHP_EOL;
     // Open the file
-    $fp = fopen(DOTENVY_BASE_PATH . '/env_apache.txt', 'wb');
+    $fp = fopen(DOTENVY_BASE_PATH . '/.env_apache.txt', 'wb');
     // Write out the comments
     $comments = [
         '# Apache .env variables',
@@ -65,9 +65,9 @@ function createApacheEnvFile(array $vars, int $spaces)
  */
 function createNginxEnvFile(array $vars, int $spaces)
 {
-    echo 'Generating '.DOTENVY_BASE_PATH.'/env_nginx.txt'.PHP_EOL;
+    echo 'Generating '.DOTENVY_BASE_PATH.'/.env_nginx.txt'.PHP_EOL;
     // Open the file
-    $fp = fopen(DOTENVY_BASE_PATH . '/env_nginx.txt', 'wb');
+    $fp = fopen(DOTENVY_BASE_PATH . '/.env_nginx.txt', 'wb');
     // Write out the comments
     $comments = [
         '# Nginx .env variables',
@@ -89,9 +89,9 @@ function createNginxEnvFile(array $vars, int $spaces)
  */
 function createCliEnvFile(array $vars, int $spaces)
 {
-    echo 'Generating '.DOTENVY_BASE_PATH.'/env_cli.txt'.PHP_EOL;
+    echo 'Generating '.DOTENVY_BASE_PATH.'/.env_cli.txt'.PHP_EOL;
     // Open the file
-    $fp = fopen(DOTENVY_BASE_PATH . '/env_cli.txt', 'wb');
+    $fp = fopen(DOTENVY_BASE_PATH . '/.env_cli.txt', 'wb');
     // Write out the comments
     $comments = [
         '# CLI (bash) .env variables',
