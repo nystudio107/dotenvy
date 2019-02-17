@@ -163,6 +163,20 @@ export DB_TABLE_PREFIX=""
 export DB_PORT="3306"
 ```
 
+## The Craft CMS CLI
+
+Note that if you set the `.env` variables directly in your Apache or Nginx config, these variables will **not** be available using the Craft CMS `./craft` CLI command.
+
+That's because the webserver doesn't run at all for CLI requests. Instead, you'll need to add them to your `.bashrc` file as noted above, or you can use the Unix [source](https://bash.cyberciti.biz/guide/Source_command) command, e.g:
+
+```bash
+source .env_cli.txt && ./craft migrate/all
+```
+
+In the above example, the `source` command will execute the `export` statements in the `.env_cli.txt` and then run the `./craft` executable with those environmental variables set.
+
+This pattern is useful if you are running multiple sites on a single instance, and so setting the `.env` variables globally for a user via `.bashrc` doesn't make sense.
+ 
 ## Dotenvy Roadmap
 
 Some things to do, and ideas for potential features:
