@@ -95,7 +95,7 @@ function createCliEnvFile(array $vars, int $spaces)
     // Write out the comments
     $comments = [
         '# CLI (bash) .env variables',
-        '# Paste these inside to your .bashrc file in your $HOME directory:',
+        '# Paste these inside your .bashrc file in your $HOME directory:',
     ];
     foreach ($comments as $comment) {
         fwrite($fp, $comment . PHP_EOL);
