@@ -34,6 +34,8 @@ Why? Because as per the [phpdotenv](https://github.com/vlucas/phpdotenv) documen
   
   Using the technique described here, the exact same `$_ENV` superglobal gets set with your environmental variables, and are made available via the same `getenv()` function. The difference is that your webserver or CLI sets the variables directly, without having to parse the `.env` file. 
   
+  This is a partial implementation of feature I've been hoping to have in Craft CMS core in some fashion: [Add `craft config/cache` as a console command](https://github.com/craftcms/cms/issues/1607)
+  
 ## Using Dotenvy
 
 From your project's root directory that contains the `.env` and `/vendor` directory, do:
