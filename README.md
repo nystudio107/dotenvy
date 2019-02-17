@@ -26,7 +26,13 @@ Dotenvy is a small tool that takes the contents of your `.env` file, and outputs
 
 Why? Because as per the [phpdotenv](https://github.com/vlucas/phpdotenv) documentation:
 
-> phpdotenv is made for development environments, and generally should not be used in production. In production, the actual environment variables should be set so that there is no overhead of loading the .env file on each request. This can be achieved via an automated deployment process with tools like Vagrant, chef, or Puppet, or can be set manually with cloud hosts like Pagodabox and Heroku.
+> phpdotenv is made for development environments, and generally should not be used in production. **In production, the actual environment variables should be set so that there is no overhead of loading the .env file on each request.** This can be achieved via an automated deployment process with tools like Vagrant, chef, or Puppet, or can be set manually with cloud hosts like Pagodabox and Heroku.
+  
+  The `.env` file is meant to be a convenience to make things easier to change in local development environments.
+  
+  What the [phpdotenv](https://github.com/vlucas/phpdotenv) package does is parse your `.env` file, and then call [putenv()](http://php.net/manual/en/function.putenv.php) to set each environment variable. This sets the [$_ENV superglobal](http://php.net/manual/en/reserved.variables.environment.php) that your application can later read in via [getenv()](http://php.net/manual/en/function.getenv.php).
+  
+  Using the technique described here, the exact same `$_ENV` superglobal gets set with your environmental variables, and are made available via the same `getenv()` function. The difference is that your webserver or CLI sets the variables directly, without having to parse the `.env` file. 
   
 ## Using Dotenvy
 
@@ -101,6 +107,9 @@ DB_PORT="3306"
 The following files will be output in the same directory as the `.env` file:
 
 #### Apache `.env_apache.txt`
+
+Paste these inside the `<VirtualHost>` block
+
 ```apacheconfig
 # Apache .env variables
 # Paste these inside the <VirtualHost> block:
@@ -118,6 +127,8 @@ SetEnv    DB_PORT                 "3306"
 
 #### Nginx `.env_nginx.txt`
 
+Paste these inside the `server {}` or `location ~ \.php {}` block or in the `fastcgi_params` file
+
 ```apacheconfig
 # Nginx .env variables
 # Paste these inside the server {} or location ~ \.php {} block or in the fastcgi_params file:
@@ -134,6 +145,8 @@ fastcgi_param    DB_PORT                 "3306";
 ```
 
 #### CLI (Bash shell) `.env_cli.txt`
+
+Paste these inside your `.bashrc` file in your `$HOME` directory:
 
 ```bash
 # CLI (bash) .env variables
