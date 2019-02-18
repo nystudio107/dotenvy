@@ -32,7 +32,9 @@ Why? Because as per the [phpdotenv](https://github.com/vlucas/phpdotenv) documen
   
   What the [phpdotenv](https://github.com/vlucas/phpdotenv) package does is parse your `.env` file, and then call [putenv()](http://php.net/manual/en/function.putenv.php) to set each environment variable. This sets the [$_ENV superglobal](http://php.net/manual/en/reserved.variables.environment.php) that your application can later read in via [getenv()](http://php.net/manual/en/function.getenv.php).
   
-  Using the technique described here, the exact same `$_ENV` superglobal gets set with your environmental variables, and are made available via the same `getenv()` function. The difference is that your webserver or CLI sets the variables directly, without having to parse the `.env` file. 
+  Using the technique described here, the exact same `$_ENV` superglobal gets set with your environmental variables, and are made available via the same `getenv()` function. The difference is that your webserver or CLI sets the variables directly, without having to parse the `.env` file.
+  
+  Without question, this is a micro-optimization... and is unlikely to make a significant performance difference. But why add overhead for no reason?
   
   This is a partial implementation of feature I've been hoping to have in Craft CMS core in some fashion: [Add `craft config/cache` as a console command](https://github.com/craftcms/cms/issues/1607)
   
