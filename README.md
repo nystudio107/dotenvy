@@ -43,18 +43,18 @@ Why? Because as per the [phpdotenv](https://github.com/vlucas/phpdotenv) documen
 From your project's root directory that contains the `.env` and `/vendor` directory, do:
 
 ```bash
-vendor/nystudio107/dotenvy/src/dotenvy
+vendor/bin/dotenvy
 ```
 
 If you're on Windows, do:
 ```bash
-vendor/nystudio107/dotenvy/src/dotenvy.bat
+vendor/bin/dotenvy.bat
 ```
 
 If your `.env` file lives somewhere else, you can pass in the directory to the `.env` file:
 
 ```bash
-vendor/nystudio107/dotenvy/src/dotenvy /path/to/some/dir/
+vendor/bin/dotenvy /path/to/some/dir/
 ```
 
 Then **do not create** a `.env` file on your production environment, instead paste or insert via a deployment system the resulting file that Dotenvy generates for you.

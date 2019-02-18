@@ -18,6 +18,7 @@
         "php": ">=7.0.0",
         "vlucas/phpdotenv": "^2.4.0"
     },
+    "bin": ["src/dotenvy"],
     "autoload": {
         "psr-4": {
             "nystudio107\\dotenvy\\": "src/"
