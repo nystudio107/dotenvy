@@ -129,9 +129,15 @@ SetEnv    DB_TABLE_PREFIX         ""
 SetEnv    DB_PORT                 "3306"
 ```
 
+...or you can include the files that Dotenvy generates directly in your Apache conf via:
+
+```
+Include /home/forge/SOMEDOMAIN/.env_apache.txt
+```
+
 #### Nginx `.env_nginx.txt`
 
-Paste these inside the `server {}` or `location ~ \.php {}` block or in the `fastcgi_params` file
+Paste these inside the `server {}` or `location ~ \.php {}` block or in the `fastcgi_params` file:
 
 ```apacheconfig
 # Nginx .env variables
@@ -147,6 +153,14 @@ fastcgi_param    DB_SCHEMA               "public";
 fastcgi_param    DB_TABLE_PREFIX         "";
 fastcgi_param    DB_PORT                 "3306";
 ```
+
+...or you can include the files that Dotenvy generates directly in your Nginx conf via:
+
+```
+include /home/forge/SOMEDOMAIN/.env_nginx.txt
+```
+
+See [Nginx-Craft](https://github.com/nystudio107/nginx-craft) for details.
 
 #### CLI (Bash shell) `.env_cli.txt`
 
