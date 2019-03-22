@@ -20,6 +20,10 @@ To install this package, follow these instructions.
 
         composer require nystudio107/dotenvy
 
+## CraftQuest.io video: Injecting Environment Variables with Dotenvy
+
+[![CraftQuest.io video: Injecting Environment Variables with Dotenvy](https://i.vimeocdn.com/video/769743390.jpg?mw=1900&mh=1069&q=70)](https://craftquest.io/livestreams/injecting-environment-variables-with-dotenvy)
+
 ## Dotenvy Overview
 
 Dotenvy is a small tool that takes the contents of your `.env` file, and outputs them in a format that can be pasted directly into an Apache server config, Nginx server config, or shell CLI `.bashrc`
