@@ -13,8 +13,10 @@
  * @since     1.0.0
  * @license   MIT
  */
+// Parse input parameters
+parse_str(implode('&',array_slice($argv, 1)), $arguments);
 // Set path constants
-define('DOTENVY_BASE_PATH', $argv[1] ?? getcwd());
+define('DOTENVY_BASE_PATH', $arguments['base_path'] ?? getcwd());
 define('DOTENVY_VENDOR_PATH', DOTENVY_BASE_PATH.'/vendor');
 // Load Composer's autoloader
 require_once DOTENVY_VENDOR_PATH.'/autoload.php';
@@ -26,9 +28,22 @@ if (file_exists(DOTENVY_BASE_PATH.'/.env')) {
     $vars = $env->getEnvironmentVariableNames();
     if (!empty($vars)) {
         $spaces = getMaxSpaces($vars);
-        createApacheEnvFile($vars, $spaces);
-        createNginxEnvFile($vars, $spaces);
-        createCliEnvFile($vars, $spaces);
+        if (!empty($arguments['output'])) {
+            $outputs = explode(',', $arguments['output']);
+            if (in_array('apache', $outputs)) {
+                createApacheEnvFile($vars, $spaces);
+            }
+            if (in_array('nginx', $outputs)) {
+                createNginxEnvFile($vars, $spaces);
+            }
+            if (in_array('cli', $outputs)) {
+                createCliEnvFile($vars, $spaces);
+            }
+        } else {
+            createApacheEnvFile($vars, $spaces);
+            createNginxEnvFile($vars, $spaces);
+            createCliEnvFile($vars, $spaces);
+        }
     } else {
         echo PHP_EOL.'No variables found in the .env at '.DOTENVY_BASE_PATH.PHP_EOL;
     }
