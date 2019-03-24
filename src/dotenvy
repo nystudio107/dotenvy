@@ -10,7 +10,7 @@
  * @copyright Copyright (c) 2019 nystudio107
  * @link      https://nystudio107.com/
  * @package   dotenvy
- * @since     1.0.0
+ * @since     1.0.2
  * @license   MIT
  */
 // Set path constants
@@ -29,6 +29,7 @@ if (file_exists(DOTENVY_BASE_PATH.'/.env')) {
         createApacheEnvFile($vars, $spaces);
         createNginxEnvFile($vars, $spaces);
         createCliEnvFile($vars, $spaces);
+        createDockerEnvFile($vars, $spaces);
     } else {
         echo PHP_EOL.'No variables found in the .env at '.DOTENVY_BASE_PATH.PHP_EOL;
     }
@@ -37,6 +38,8 @@ if (file_exists(DOTENVY_BASE_PATH.'/.env')) {
 }
 
 /**
+ * Generate the Apache SetEnv variables based on the .env file
+ *
  * @param array $vars
  * @param int   $spaces
  */
@@ -48,7 +51,8 @@ function createApacheEnvFile(array $vars, int $spaces)
     // Write out the comments
     $comments = [
         '# Apache .env variables',
-        '# Paste these inside the <VirtualHost> block:',
+        '# Paste these inside the <VirtualHost> block',
+        '# or just include the file directly with the `Include` directive',
     ];
     foreach ($comments as $comment) {
         fwrite($fp, $comment . PHP_EOL);
@@ -61,6 +65,8 @@ function createApacheEnvFile(array $vars, int $spaces)
 }
 
 /**
+ * Generate the Nginx fastcgi_param variables based on the .env file
+ *
  * @param array $vars
  * @param int   $spaces
  */
@@ -72,7 +78,8 @@ function createNginxEnvFile(array $vars, int $spaces)
     // Write out the comments
     $comments = [
         '# Nginx .env variables',
-        '# Paste these inside the server {} or location ~ \.php {} block or in the fastcgi_params file:',
+        '# Paste these inside the server {} or location ~ \.php {} block or in the fastcgi_params file',
+        '# or just include the file directly with the `include` directive',
     ];
     foreach ($comments as $comment) {
         fwrite($fp, $comment . PHP_EOL);
@@ -85,6 +92,8 @@ function createNginxEnvFile(array $vars, int $spaces)
 }
 
 /**
+ * Generate the shell environment variables based on the .env file
+ *
  * @param array $vars
  * @param int   $spaces
  */
@@ -107,6 +116,33 @@ function createCliEnvFile(array $vars, int $spaces)
     }
     fclose($fp);
 }
+
+/**
+ * Generate the Dockerfile ENV variables based on the .env file
+ *
+ * @param array $vars
+ * @param int   $spaces
+ */
+function createDockerEnvFile(array $vars, int $spaces)
+{
+    echo 'Generating '.DOTENVY_BASE_PATH.'/.env_docker.txt'.PHP_EOL;
+    // Open the file
+    $fp = fopen(DOTENVY_BASE_PATH . '/.env_docker.txt', 'wb');
+    // Write out the comments
+    $comments = [
+        '# Docker .env variables',
+        '# Paste these into your Dockerfile',
+    ];
+    foreach ($comments as $comment) {
+        fwrite($fp, $comment . PHP_EOL);
+    }
+    // Write out the .env variables
+    foreach ($vars as $var) {
+        fwrite($fp, 'ENV '.$var.'="'. $_ENV[$var].'"'.PHP_EOL);
+    }
+    fclose($fp);
+}
+
 /**
  * @param array $vars
  *
