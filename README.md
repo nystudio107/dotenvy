@@ -31,17 +31,17 @@ Dotenvy is a small tool that takes the contents of your `.env` file, and outputs
 Why? Because as per the [phpdotenv](https://github.com/vlucas/phpdotenv) documentation:
 
 > phpdotenv is made for development environments, and generally should not be used in production. **In production, the actual environment variables should be set so that there is no overhead of loading the .env file on each request.** This can be achieved via an automated deployment process with tools like Vagrant, chef, or Puppet, or can be set manually with cloud hosts like Pagodabox and Heroku.
-  
+
   The `.env` file is meant to be a convenience to make things easier to change in local development environments.
-  
+
   What the [phpdotenv](https://github.com/vlucas/phpdotenv) package does is parse your `.env` file, and then call [putenv()](http://php.net/manual/en/function.putenv.php) to set each environment variable. This sets the [$_ENV superglobal](http://php.net/manual/en/reserved.variables.environment.php) that your application can later read in via [getenv()](http://php.net/manual/en/function.getenv.php).
-  
+
   Using the technique described here, the exact same `$_ENV` superglobal gets set with your environmental variables, and are made available via the same `getenv()` function. The difference is that your webserver or CLI sets the variables directly, without having to parse the `.env` file.
-  
+
   Without question, this is a micro-optimization... and is unlikely to make a significant performance difference. But why add overhead for no reason?
-  
+
   This is a partial implementation of feature I've been hoping to have in Craft CMS core in some fashion: [Add `craft config/cache` as a console command](https://github.com/craftcms/cms/issues/1607)
-  
+
 ## Using Dotenvy
 
 From your project's root directory that contains the `.env` and `/vendor` directory, do:
@@ -58,7 +58,7 @@ vendor/bin/dotenvy.bat
 If your `.env` file lives somewhere else, you can pass in the directory to the `.env` file:
 
 ```bash
-vendor/bin/dotenvy /path/to/some/dir/
+vendor/bin/dotenvy base_path=/path/to/some/dir/
 ```
 
 Then **do not create** a `.env` file on your production environment, instead paste or insert via a deployment system the resulting file that Dotenvy generates for you.
@@ -66,6 +66,26 @@ Then **do not create** a `.env` file on your production environment, instead pas
 In this way, the appropriate `.env` variables will be automatically injected by your Apache server, or Nginx server, or via CLI.
 
 This means that the `.env` file no longer needs to be parsed on every request.
+
+#### Parameters
+
+Starting with 1.1.0 you can use the following parameters with Dotenvy:
+
+##### `base_path`
+
+If your `.env` file lives somewhere else, you can pass in the directory to the `.env` file:
+
+```bash
+vendor/bin/dotenvy base_path=/path/to/some/dir/
+```
+
+##### `output`
+
+If you don't want to generate all three config files, you can use this parameter to tell this to Dotenvy:
+
+```bash
+vendor/bin/dotenvy output=apache,cli
+```
 
 ### Updating `.gitignore`
 
@@ -217,7 +237,7 @@ source .env_cli.txt && ./craft migrate/all
 In the above example, the `source` command will execute the `export` statements in the `.env_cli.txt` and then run the `./craft` executable with those environmental variables set.
 
 This pattern is useful if you are running multiple sites on a single instance, and so setting the `.env` variables globally for a user via `.bashrc` doesn't make sense.
- 
+
 ## Dotenvy Roadmap
 
 Some things to do, and ideas for potential features:
