@@ -26,7 +26,7 @@ To install this package, follow these instructions.
 
 ## Dotenvy Overview
 
-Dotenvy is a small tool that takes the contents of your `.env` file, and outputs them in a format that can be pasted directly into an Apache server config, Nginx server config, or shell CLI `.bashrc`
+Dotenvy is a small tool that takes the contents of your `.env` file, and outputs them in a format that can be pasted directly into an Apache server config, Nginx server config, shell CLI `.bashrc`, or Docker `Dockerfile`
 
 Why? Because as per the [phpdotenv](https://github.com/vlucas/phpdotenv) documentation:
 
@@ -203,6 +203,25 @@ export DB_DATABASE="craft3"
 export DB_SCHEMA="public"
 export DB_TABLE_PREFIX=""
 export DB_PORT="3306"
+```
+
+#### Docker `.env_docker.txt`
+
+Paste these inside your `Dockerfile` file:
+
+```dockerfile
+# Docker .env variables
+# Paste these into your Dockerfile
+ENV ENVIRONMENT="local"
+ENV SECURITY_KEY="jMgCxHuaM1g3qSzHiknTt5S8gDy5BNW7"
+ENV DB_DRIVER="mysql"
+ENV DB_SERVER="localhost"
+ENV DB_USER="homestead"
+ENV DB_PASSWORD="secret"
+ENV DB_DATABASE="craft3"
+ENV DB_SCHEMA="public"
+ENV DB_TABLE_PREFIX=""
+ENV DB_PORT="3306"
 ```
 
 ## The Craft CMS CLI
