@@ -1,7 +1,7 @@
 {
     "name": "nystudio107/dotenvy",
     "description": "Speed up your production sites by ditching .env for key/value variable pairs as Apache, Nginx, and shell equivalents.",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "keywords": ["env", "dotenv", "environment", "apache", "nginx", "bash"],
     "support": {
         "docs": "https://github.com/nystudio107/dotenvy/blob/v1/README.md",
@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=7.0.0",
-        "vlucas/phpdotenv": "^2.4.0"
+        "vlucas/phpdotenv": "^3.4.0"
     },
     "bin": ["src/dotenvy"],
     "autoload": {
