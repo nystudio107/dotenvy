@@ -21,7 +21,7 @@ require_once DOTENVY_VENDOR_PATH.'/autoload.php';
 // Load dotenv?
 if (file_exists(DOTENVY_BASE_PATH.'/.env')) {
     // Load up the .env file variables
-    $env = new Dotenv\Dotenv(DOTENVY_BASE_PATH);
+    $env = Dotenv\Dotenv::create(DOTENVY_BASE_PATH);
     $env->load();
     $vars = $env->getEnvironmentVariableNames();
     if (!empty($vars)) {
